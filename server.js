@@ -4,14 +4,15 @@ require('dotenv').config();
 
 const app = express();
 
-const { router } = require('./postsRouter');
+const { postsRouter } = require('./routers/postsRouter');
 
 const PORT = process.env.PORT || 8081;
 
 app.use(express.json());
 app.use(express.static('public')); //можно получить доступ к директории, сделав ее публичной
 app.use(morgan('tiny'));
-app.use(cors());
+
+app.use('/api/posts', postsRouter);
 
 app.listen(PORT, (err) => {
         if(err){
